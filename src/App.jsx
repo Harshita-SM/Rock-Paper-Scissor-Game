@@ -1,8 +1,8 @@
 import { useState } from "react";
-import './App.css'
+import "./App.css";
 
-function App() { 
-  const [playerMove , setPlayerMove] = useState("");
+function App() {
+  const [playerMove, setPlayerMove] = useState("");
   const [computerMove, setComputerMove] = useState("");
   const [result, setResult] = useState("");
   const [rounds, setRounds] = useState(0);
@@ -38,56 +38,64 @@ function App() {
     const gameResult = decideWinner(move, compMove);
     setResult(gameResult);
 
-    setRounds(prev => prev + 1);
+    setRounds((prev) => prev + 1);
 
-      setHistory(prev => [...prev,
-    { player: move, computer: compMove, result: gameResult }
+    setHistory((prev) => [
+      ...prev,
+      { player: move, computer: compMove, result: gameResult },
     ]);
 
     if (gameResult === "You Win") {
-      setStreak(prev => prev + 1);
+      setStreak((prev) => prev + 1);
     } else {
       setStreak(0);
     }
   };
 
   const resetGame = () => {
-  setPlayerMove("");
-  setComputerMove("");
-  setResult("");
-  setRounds(0);
+    setPlayerMove("");
+    setComputerMove("");
+    setResult("");
+    setRounds(0);
+    setHistory([]);
+    setStreak(0);
   };
 
-
-
-
   return (
-    <div>
-      <h1>Computer : User</h1>
+    <div className="container">
+      <h1>🎮 Rock Paper Scissors</h1>
 
-      <button onClick={() => handleClick("rock")}>Rock 🪨</button>
-      <button onClick={() => handleClick("paper")}>Paper 📄</button>
-      <button onClick={() => handleClick("scissors")}>Scissors ✂️</button>
-      <button onClick={resetGame}>Reset Game 🔄</button>
+      <div className="buttons">
+        <button onClick={() => handleClick("rock")}>🪨 Rock</button>
+        <button onClick={() => handleClick("paper")}>📄 Paper</button>
+        <button onClick={() => handleClick("scissors")}>✂️ Scissors</button>
+      </div>
 
-      <p>Game Started !</p>
+      <button className="reset" onClick={resetGame}>
+        Reset 🔄
+      </button>
 
-      <h3>Rounds Played: {rounds}</h3>
+      <div className="info">
+        <h3>Rounds: {rounds}</h3>
+        <h3>🔥 Win Streak: {streak}</h3>
 
-      <p>Your Move: {playerMove}</p>
-      <p>Computer Move: {computerMove}</p>
-      <h2>Result: {result}</h2>
-      <h3>Move History:</h3>
-      <ul>
-        {history.map((item, index) => (
-        <li key={index}>
-        You: {item.player} | Computer: {item.computer} → {item.result}
-        </li>
-         ))}
-      </ul>
-      <h3>🔥 Win Streak: {streak}</h3>
+        <p>You: {playerMove || "-"}</p>
+        <p>Computer: {computerMove || "-"}</p>
+        <h2>{result || "Make your move!"}</h2>
+      </div>
+
+      <div className="history">
+        <h3>📜 Move History</h3>
+        <ul>
+          {history.map((item, index) => (
+            <li key={index}>
+              {item.player} vs {item.computer} → {item.result}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
-  )
+  );
 }
 
 export default App;
