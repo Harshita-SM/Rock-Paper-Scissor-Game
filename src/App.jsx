@@ -13,8 +13,12 @@ const getComputerMove = () => {
 
 const handleClick = (move) => {
   setPlayerMove(move);
+
   const compMove = getComputerMove();
-  console.log("Computer:", compMove);
+  setComputerMove(compMove);
+
+  const gameResult = decideWinner(move, compMove);
+  setResult(gameResult);
 };
 
 const decideWinner = (player, computer) => {
@@ -31,6 +35,9 @@ const decideWinner = (player, computer) => {
   return "Computer Wins";
 };
 
+const [computerMove, setComputerMove] = useState("");
+const [result, setResult] = useState("");
+
   return (
     <div>
       <h1>Computer : User</h1>
@@ -39,6 +46,8 @@ const decideWinner = (player, computer) => {
       <button>onClick = {() => setPlayerMove("Scissor")}Scissor ✂️</button>
       <p>Game Started !</p>
       <p>Your Move: {playerMove}</p>
+      <p>Computer Move: {computerMove}</p>
+      <h2>Result: {result}</h2>
     </div>
   )
 }
