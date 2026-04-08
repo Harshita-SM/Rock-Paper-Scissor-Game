@@ -2,49 +2,55 @@ import { useState } from "react";
 import './App.css'
 
 function App() { 
-  let [playerMove , setPlayerMove] = useState("");
+  const [playerMove , setPlayerMove] = useState("");
+  const [computerMove, setComputerMove] = useState("");
+  const [result, setResult] = useState("");
+  const [rounds, setRounds] = useState(0);
 
-const getComputerMove = () => {
-  const moves = ["rock", "paper", "scissors"];
-  const randomIndex = Math.floor(Math.random() * 3);
-  return moves[randomIndex];
-};
+  const getComputerMove = () => {
+    const moves = ["rock", "paper", "scissors"];
+    const randomIndex = Math.floor(Math.random() * 3);
+    return moves[randomIndex];
+  };
 
+  const decideWinner = (player, computer) => {
+    if (player === computer) return "Draw";
 
-const handleClick = (move) => {
-  setPlayerMove(move);
+    if (
+      (player === "rock" && computer === "scissors") ||
+      (player === "paper" && computer === "rock") ||
+      (player === "scissors" && computer === "paper")
+    ) {
+      return "You Win";
+    }
 
-  const compMove = getComputerMove();
-  setComputerMove(compMove);
+    return "Computer Wins";
+  };
 
-  const gameResult = decideWinner(move, compMove);
-  setResult(gameResult);
-};
+  const handleClick = (move) => {
+    setPlayerMove(move);
 
-const decideWinner = (player, computer) => {
-  if (player === computer) return "Draw";
+    const compMove = getComputerMove();
+    setComputerMove(compMove);
 
-  if (
-    (player === "rock" && computer === "scissors") ||
-    (player === "paper" && computer === "rock") ||
-    (player === "scissors" && computer === "paper")
-  ) {
-    return "You Win";
-  }
+    const gameResult = decideWinner(move, compMove);
+    setResult(gameResult);
 
-  return "Computer Wins";
-};
-
-const [computerMove, setComputerMove] = useState("");
-const [result, setResult] = useState("");
+    setRounds(prev => prev + 1);
+  };
 
   return (
     <div>
       <h1>Computer : User</h1>
-      <button onClick = {() => handleClick("rock")}>Rock 🪨</button>
-      <button>onClick = {() => setPlayerMove("Paper")}Paper 📄</button>
-      <button>onClick = {() => setPlayerMove("Scissor")}Scissor ✂️</button>
+
+      <button onClick={() => handleClick("rock")}>Rock 🪨</button>
+      <button onClick={() => handleClick("paper")}>Paper 📄</button>
+      <button onClick={() => handleClick("scissors")}>Scissors ✂️</button>
+
       <p>Game Started !</p>
+
+      <h3>Rounds Played: {rounds}</h3>
+
       <p>Your Move: {playerMove}</p>
       <p>Computer Move: {computerMove}</p>
       <h2>Result: {result}</h2>
@@ -52,4 +58,4 @@ const [result, setResult] = useState("");
   )
 }
 
-export default App
+export default App;
