@@ -6,6 +6,8 @@ function App() {
   const [computerMove, setComputerMove] = useState("");
   const [result, setResult] = useState("");
   const [rounds, setRounds] = useState(0);
+  const [history, setHistory] = useState([]);
+  const [streak, setStreak] = useState(0);
 
   const getComputerMove = () => {
     const moves = ["rock", "paper", "scissors"];
@@ -38,10 +40,15 @@ function App() {
 
     setRounds(prev => prev + 1);
 
-      setHistory(prev => [
-  ...prev,
-  { player: move, computer: compMove, result: gameResult }
-]);
+      setHistory(prev => [...prev,
+    { player: move, computer: compMove, result: gameResult }
+    ]);
+
+    if (gameResult === "You Win") {
+      setStreak(prev => prev + 1);
+    } else {
+      setStreak(0);
+    }
   };
 
   const resetGame = () => {
@@ -51,7 +58,7 @@ function App() {
   setRounds(0);
   };
 
-  const [history, setHistory] = useState([]);
+
 
 
   return (
@@ -78,6 +85,7 @@ function App() {
         </li>
          ))}
       </ul>
+      <h3>🔥 Win Streak: {streak}</h3>
     </div>
   )
 }
