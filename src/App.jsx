@@ -37,7 +37,8 @@ const decideWinner = (player, computer) => {
       <button onClick = {() => handleClick("rock")}>Rock 🪨</button>
       <button>onClick = {() => setPlayerMove("Paper")}Paper 📄</button>
       <button>onClick = {() => setPlayerMove("Scissor")}Scissor ✂️</button>
-       <p>Your Move: {playerMove}</p>
+      <p>Game Started !</p>
+      <p>Your Move: {playerMove}</p>
     </div>
   )
 }
