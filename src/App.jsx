@@ -37,6 +37,11 @@ function App() {
     setResult(gameResult);
 
     setRounds(prev => prev + 1);
+
+      setHistory(prev => [
+  ...prev,
+  { player: move, computer: compMove, result: gameResult }
+]);
   };
 
   const resetGame = () => {
@@ -45,6 +50,9 @@ function App() {
   setResult("");
   setRounds(0);
   };
+
+  const [history, setHistory] = useState([]);
+
 
   return (
     <div>
@@ -62,6 +70,14 @@ function App() {
       <p>Your Move: {playerMove}</p>
       <p>Computer Move: {computerMove}</p>
       <h2>Result: {result}</h2>
+      <h3>Move History:</h3>
+      <ul>
+        {history.map((item, index) => (
+        <li key={index}>
+        You: {item.player} | Computer: {item.computer} → {item.result}
+        </li>
+         ))}
+      </ul>
     </div>
   )
 }
