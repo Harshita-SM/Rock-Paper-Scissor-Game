@@ -39,6 +39,13 @@ function App() {
     setRounds(prev => prev + 1);
   };
 
+  const resetGame = () => {
+  setPlayerMove("");
+  setComputerMove("");
+  setResult("");
+  setRounds(0);
+  };
+
   return (
     <div>
       <h1>Computer : User</h1>
@@ -46,6 +53,7 @@ function App() {
       <button onClick={() => handleClick("rock")}>Rock 🪨</button>
       <button onClick={() => handleClick("paper")}>Paper 📄</button>
       <button onClick={() => handleClick("scissors")}>Scissors ✂️</button>
+      <button onClick={resetGame}>Reset Game 🔄</button>
 
       <p>Game Started !</p>
 
